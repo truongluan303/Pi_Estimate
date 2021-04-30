@@ -15,6 +15,6 @@ A_square = (2r)^2 = 4 * (r^2)
 => pi = 4 * A_circle / A_square
 
 Therefore, we can simulate this situation by creating a big number of points that are randomly distributed on the image.
-ALL of the points generated will represent A_square. 
-The total number of points that are inside the circle will represent A_circle
+ALL of the points generated (BOTH blue & red) will represent A_square. 
+The total number of points that are inside the circle (ONLY red) will represent A_circle
 From there, we can do the calculation and estimate the number pi
