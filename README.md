@@ -7,6 +7,7 @@ This is a simple program that estimate the value of Pi using the Monte Carlo Met
 From the image above, we can easily calculate the Area of the circle and the square
 
 A_circle = pi * (r^2)
+
 A_square = (2r)^2 = 4 * (r^2)
 
 => A_circle / A_square = pi / 4
