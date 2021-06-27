@@ -1,61 +1,93 @@
-import math
-import random
-from tkinter import *
-from tkinter import Label
+# Hoang Phuc Luan Truong
+# Pi Estimate program with graphical user interface
 
-LIM = 1000  # constant
+from math import sqrt
+import pygame, random
 
-
-def createGUI():
-    # Gui config
-    root = Tk()
-    root.geometry('500x170')
-    root.title('Estimate Pi')
-
-    # the actual GUI
-    label1 = Label(root, text="Please enter the number of times the loop will run:")
-    label1.pack()
-
-    entry = Entry(root, width=30, bg="white", fg="dark blue", justify="center")
-    entry.pack()
-
-    space1 = Label(root)
-    space1.pack()
-
-    button = Button(root, text="RUN", bg="brown", fg="white",
-                    command=lambda: simulate(int(entry.get())))
-    button.pack()
-
-    space2 = Label(root)
-    space2.pack()
-
-    global output_box
-    output_box = Label(root, fg="brown")
-    output_box.pack()
-
-    root.mainloop()
+SIZE = 600
+RADIUS = SIZE / 2
+RED = (255, 0, 0)
+BLUE = (128, 166, 229)
+BLACK = (0, 0, 0)
+total = 0
+in_circle = 0
+pi = 0
+output_pi = 0
+timer = 0
 
 
-def simulate(num_of_simulation):
-    in_circle = 0
-
-    for i in range(0, num_of_simulation):
-        # generate a random coordinate for a point
-        x = random.randint(0, LIM)
-        y = random.randint(0, LIM)
-
-        # check if the point is in the circle
-        distance = float(math.sqrt((x * x) + (y * y)))
-        if distance <= LIM:
-            in_circle += 1
-
-        if i % 100000 == 1:
-            result = float(4 * in_circle / (i + 1))
-
-    result = 4 * in_circle / num_of_simulation
-    output_box.config(text="The final result is:\n" + str(result))
-    print(result)
+class Point(pygame.sprite.Sprite):
+    def __init__(self, color, pos_x, pos_y) -> None:
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface([1, 1])
+        self.image.fill(color)
+        self.rect = self.image.get_rect()
+        self.rect.center = [pos_x + RADIUS, pos_y + RADIUS] 
 
 
-if __name__ == '__main__':
-    createGUI()  # create the GUI
+
+# generate a random point and check if it is in the circle or not
+def generate(sprite_group):
+    pos_x = random.randint(-RADIUS, RADIUS)
+    pos_y = random.randint(-RADIUS, RADIUS)
+    dis_to_origin = sqrt(pos_x * pos_x + pos_y * pos_y)
+
+    global total, pi, in_circle, output_pi
+    total += 1
+    # if the distance to the origin > the circle's radius => it is outside of the circle
+    if dis_to_origin > RADIUS:
+        color = RED
+    # else, the point is inside of the circle    
+    else:
+        in_circle += 1
+        color = BLUE
+    pi = 4 * in_circle / total
+    # add the point generated to the sprite group
+    point = Point(color, pos_x, pos_y)
+    sprite_group.add(point)
+
+    # we don't want the output to constantly change too fast
+    # therefore, we update the output after a period of time
+    if (total % 50 == 0):
+        output_pi = pi
+
+
+def create_gui():
+    pygame.init()                                           # initialize pygame
+    sprite_group = pygame.sprite.Group()                    # the group that contains all sprites
+    clock = pygame.time.Clock()
+    pygame.display.set_caption('Estimate Pi')               # the window's title
+    screen = pygame.display.set_mode((SIZE, SIZE + 50))     # the screen
+    screen.fill(BLACK)                                      # black background
+    font = pygame.font.SysFont("monospace bold", 32)        # text output font
+    
+    while True:
+        process(sprite_group, screen, clock)
+        display_output(font, screen)
+        input_handling()
+
+
+def input_handling():
+    # quitting when user closes windows or presses esc
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT or ( event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
+            quit()
+
+
+def process(sprite_group, screen, clock):
+    pygame.display.flip()
+    sprite_group.draw(screen)
+    generate(sprite_group)
+    clock.tick(60)
+
+
+# display the output text at the bottom of the screen
+def display_output(font, screen):
+    output = font.render("      " + str("%.20f" % round(output_pi, 20)) + "      ", True, BLUE, BLACK)
+    rect = output.get_rect()
+    rect.center = (RADIUS, SIZE + 25)
+    screen.blit(output, rect)
+
+
+if __name__ == "__main__":
+    create_gui()
