@@ -20,6 +20,8 @@ The total number of points that are inside the circle (ONLY red) will represent 
 From there, we can do the calculation and estimate the number pi
 
 I am using pygame for the graphical interface
+The longer we run the program, the more accurate the output will be
 
 This is how the output looks like:
+
 https://user-images.githubusercontent.com/83048295/123563021-16429e00-d767-11eb-9e8e-6fa285c003be.mp4
