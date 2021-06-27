@@ -22,4 +22,4 @@ From there, we can do the calculation and estimate the number pi
 I am using pygame for the graphical interface
 
 This is how the output looks like:
-Uploading Estimate Pi 2021-06-27 16-35-55.mp4…
+https://user-images.githubusercontent.com/83048295/123563021-16429e00-d767-11eb-9e8e-6fa285c003be.mp4
