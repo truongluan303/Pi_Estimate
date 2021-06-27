@@ -18,3 +18,8 @@ Therefore, we can simulate this situation by creating a big number of points tha
 ALL of the points generated (BOTH blue & red) will represent A_square. 
 The total number of points that are inside the circle (ONLY red) will represent A_circle
 From there, we can do the calculation and estimate the number pi
+
+I am using pygame for the graphical interface
+
+This is how the output looks like:
+Uploading Estimate Pi 2021-06-27 16-35-55.mp4…
