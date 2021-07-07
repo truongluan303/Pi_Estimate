@@ -19,7 +19,7 @@ timer = 0
 class Point(pygame.sprite.Sprite):
     def __init__(self, color, pos_x, pos_y) -> None:
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface([1, 1])
+        self.image = pygame.Surface([2, 2])
         self.image.fill(color)
         self.rect = self.image.get_rect()
         self.rect.center = [pos_x + RADIUS, pos_y + RADIUS] 
