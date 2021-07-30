@@ -1,4 +1,4 @@
-# Pi_Estimate using Monte Carlos method
+# Estimate Pi using Monte Carlos method
 
 This is a simple program that estimate the value of Pi using the Monte Carlo Method that is written totally in Python
 
