@@ -6,13 +6,7 @@ This is a simple program that estimate the value of Pi using the Monte Carlo Met
 
 From the image above, we can easily calculate the Area of the circle and the square
 
-A_circle = pi * (r^2)
-
-A_square = (2r)^2 = 4 * (r^2)
-
-=> A_circle / A_square = pi / 4
-
-=> pi = 4 * A_circle / A_square
+![equation](https://user-images.githubusercontent.com/83048295/161923210-8cbd2110-cfca-48c3-91b8-6f5366901c73.svg)
 
 Therefore, we can simulate this situation by creating a big number of points that are randomly distributed on the image.
 ALL of the points generated (BOTH blue & red) will represent A_square. 
